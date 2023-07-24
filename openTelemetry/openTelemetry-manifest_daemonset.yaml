@@ -14,12 +14,14 @@ spec:
     processors:
     exporters:
       logging:
-      otlphttp:
-        endpoint: "TENANTURL_TOREPLACE/api/v2/otlp"
-        headers: {"Authorization": "Api-Token DT_API_TOKEN_TO_REPLACE"}
+      otlp:
+        endpoint: tempo-otel:4317
+        tls: 
+          insecure: true
+        
     service:
       pipelines:
         traces:
           receivers: [otlp]
           processors: []
-          exporters: [logging,otlphttp]
+          exporters: [logging,otlp]
